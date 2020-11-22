@@ -17,6 +17,11 @@ public class Avaliador {
 	private List<Lance> tresMaioresLances = new ArrayList<Lance>();
 	
 	public void avalia(Leilao leilao) {
+		
+		if(leilao.getLances().size() == 0) {
+			throw new RuntimeException("Não é possível avaliar um leião sem lances!");
+		}
+		
 		Optional<Lance> maiorLance = leilao.getLances().stream().max(Comparator.comparing(l -> l.getValor()));
 		this.maiorLance = maiorLance.isPresent() ? maiorLance.get().getValor() : 0L;
 		

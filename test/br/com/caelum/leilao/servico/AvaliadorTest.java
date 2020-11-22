@@ -11,7 +11,7 @@ import br.com.caelum.leilao.dominio.Lance;
 import br.com.caelum.leilao.dominio.Leilao;
 import br.com.caelum.leilao.dominio.Usuario;
 
-public class TesteDoAvaliador {
+public class AvaliadorTest {
 
 	private Avaliador leiloeiro;
 	private Usuario joao;
@@ -49,13 +49,12 @@ public class TesteDoAvaliador {
 		Assert.assertEquals((Double) 400D, leiloeiro.getMediaLances());
 	}
 
-	@Test
-	public void testaMediaDeZeroLance() {
-		Leilao leilao = new CriadorDeLeilao().para("XBOX").constroi();
-		leiloeiro.avalia(leilao);
-		
-		Assert.assertEquals((Double) 0D, leiloeiro.getMediaLances());
 
+	@Test(expected = RuntimeException.class)
+	public void naoDeveAvaliarLeiloesSemNenhumLanceDado() {
+		Leilao leilao = new CriadorDeLeilao().para("PS3").constroi();
+		
+		leiloeiro.avalia(leilao);
 	}
 
 	@Test
@@ -111,13 +110,6 @@ public class TesteDoAvaliador {
 		Assert.assertEquals(2, lances.size());
 	}
 
-	@Test
-	public void deveDevolverListaVaziaCasoNaoHajaLances() {
-		Leilao leilao = new CriadorDeLeilao().para("PS4").constroi();
-		leiloeiro.avalia(leilao);
-		List<Lance> lances = leiloeiro.getTresMaioresLances();
-		
-		Assert.assertEquals(0, lances.size());
-	}
+
 
 }
