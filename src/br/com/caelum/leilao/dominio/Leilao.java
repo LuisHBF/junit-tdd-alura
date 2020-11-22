@@ -22,7 +22,7 @@ public class Leilao {
 	}
 
 	public void dobraLance(Usuario usuario) {
-		List<Lance> lancesDoUsuario = extracted(usuario);
+		List<Lance> lancesDoUsuario = this.getLancesDeUmUsuario(usuario);
 		if(lancesDoUsuario.size() > 0) {
 			Lance ultimoLanceDoUsuario = lancesDoUsuario.get(lancesDoUsuario.size() - 1);
 			Lance novoLance = new Lance(usuario, ultimoLanceDoUsuario.getValor() * 2);
@@ -30,7 +30,7 @@ public class Leilao {
 		}
 	}
 
-	private List<Lance> extracted(Usuario usuario) {
+	private List<Lance> getLancesDeUmUsuario(Usuario usuario) {
 		return this.lances.stream().filter(l -> l.getUsuario().equals(usuario)).collect(Collectors.toList());
 	}
 	

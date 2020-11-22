@@ -28,7 +28,7 @@ public class Avaliador {
 		this.tresMaioresLances = leilao.getLances().stream().sorted((p1,p2) -> p2.getValor().compareTo(p1.getValor()))
 				.collect(Collectors.toList());
 		
-		tresMaioresLances = tresMaioresLances.subList(0, this.tresMaioresLances.size() > 3 ? 3 : this.tresMaioresLances.size());
+		this.tresMaioresLances = tresMaioresLances.subList(0, this.tresMaioresLances.size() > 3 ? 3 : this.tresMaioresLances.size());
 		
 	}
 
