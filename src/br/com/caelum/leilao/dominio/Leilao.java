@@ -21,6 +21,19 @@ public class Leilao {
 		}
 	}
 
+	public void dobraLance(Usuario usuario) {
+		List<Lance> lancesDoUsuario = extracted(usuario);
+		if(lancesDoUsuario.size() > 0) {
+			Lance ultimoLanceDoUsuario = lancesDoUsuario.get(lancesDoUsuario.size() - 1);
+			Lance novoLance = new Lance(usuario, ultimoLanceDoUsuario.getValor() * 2);
+			this.propoe(novoLance);
+		}
+	}
+
+	private List<Lance> extracted(Usuario usuario) {
+		return this.lances.stream().filter(l -> l.getUsuario().equals(usuario)).collect(Collectors.toList());
+	}
+	
 	private boolean podeProporLance(Lance lance) {
 		Boolean possuiMaisQue5Lances = lances.stream().filter(l -> l.getUsuario().equals(lance.getUsuario()))
 				.collect(Collectors.toList()).size() >= 5;

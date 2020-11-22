@@ -67,4 +67,29 @@ public class LeilaoTest {
 		Assert.assertEquals(10, leilao.getLances().size());
 		Assert.assertEquals((Double) 1250D, leilao.getLances().get(leilao.getLances().size() -1).getValor());
 	}
+	
+	@Test
+	public void criaNovoLanceComDobroDoValorDeUmUsuarioQuePossuiLance() {
+		Leilao leilao = new Leilao("Teclado Mecânico");
+		Usuario luis = new Usuario("Luis");
+		Usuario joao = new Usuario("João");
+
+		leilao.propoe(new Lance(luis, 1000D));
+		leilao.propoe(new Lance(joao, 1200D));
+
+		leilao.dobraLance(luis);
+		
+		Assert.assertEquals(3, leilao.getLances().size());
+		Assert.assertEquals((Double) 2000D, leilao.getLances().get(2).getValor());
+	}
+	
+	@Test
+	public void naoDeveDobrarLanceCasoNaoHajaLanceAnterior() {
+		Leilao leilao = new Leilao("Teclado Mecânico");
+		Usuario luis = new Usuario("Luis");
+		
+		leilao.dobraLance(luis);
+		
+		Assert.assertEquals(0, leilao.getLances().size());
+	}
 }
